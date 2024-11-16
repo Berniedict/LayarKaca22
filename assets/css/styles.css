@@ -1,0 +1,403 @@
+/* Global Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    line-height: 1.6;
+    background-color: #f4f4f4;
+    color: #333;
+}
+
+a {
+    text-decoration: none;
+    color: #007BFF;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+header {
+    background-color: #343a40;
+    color: #fff;
+    padding: 10px 0;
+}
+
+.navbar {
+    width: 80%;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.navbar h1 {
+    font-size: 1.8rem;
+    font-family: 'Poppins', sans-serif;
+}
+
+nav a {
+    margin-left: 15px;
+    font-size: 1.1rem;
+}
+
+nav a:hover {
+    color: #ffffff;
+}
+
+.welcome-section {
+    text-align: center;
+    padding: 40px 20px;
+    background-color: #fff;
+    margin-top: 20px;
+}
+
+.welcome-section h2 {
+    font-size: 2.2rem;
+    color: #333;
+}
+
+.welcome-section p {
+    font-size: 1.1rem;
+    color: #555;
+    max-width: 700px;
+    margin: 20px auto;
+}
+
+/* Movie Listings */
+.movie-section {
+    margin-top: 40px;
+    padding: 0 20px;
+}
+
+.movie-section h3 {
+    font-size: 2rem;
+    text-align: center;
+    color: #333;
+    margin-bottom: 30px;
+}
+
+.movie-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 20px;
+    justify-items: center;
+}
+
+.movie-item {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transition: transform 0.3s ease;
+}
+
+.movie-item:hover {
+    transform: translateY(-5px);
+}
+
+.movie-poster {
+    width: 100%;
+    height: 350px;
+    object-fit: cover;
+    border-bottom: 2px solid #ddd;
+}
+
+.movie-details {
+    padding: 15px;
+}
+
+.movie-details h4 {
+    font-size: 1.5rem;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.movie-details p {
+    font-size: 1rem;
+    color: #666;
+    margin-bottom: 15px;
+}
+
+.btn {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    text-align: center;
+    border-radius: 5px;
+    font-size: 1rem;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #fffcfb;
+    color: white;
+    transform: translateY(-3px);
+}
+
+/* Login Prompt */
+.login-prompt {
+    text-align: center;
+    padding: 30px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    margin-top: 40px;
+}
+
+.login-prompt p {
+    font-size: 1.2rem;
+    color: #333;
+}
+
+.login-prompt a {
+    font-weight: bold;
+    color: #007BFF;
+}
+
+.login-prompt a:hover {
+    text-decoration: underline;
+}
+
+/* Footer */
+footer {
+    text-align: center;
+    padding: 20px;
+    background-color: #343a40;
+    color: #fff;
+    margin-top: 40px;
+}
+
+footer p {
+    font-size: 1rem;
+}
+
+/* Container Styles */
+/* Container Styles */
+.container {
+    max-width: 500px; /* Set a max-width for better alignment */
+    width: 100%; /* Full width up to the max-width */
+    margin: 50px auto; /* Center the container */
+    padding: 40px;
+    background: #fff; /* White background */
+    border-radius: 20px; /* More rounded corners */
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1); /* Soft shadow for depth */
+    text-align: center;
+    box-sizing: border-box;
+    animation: fadeIn 0.7s ease-out; /* Animation for fade-in */
+}
+
+/* Form Group Styles */
+.form-group {
+    margin-bottom: 20px; /* Space between form elements */
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 10px; /* Space below labels */
+    font-weight: bold;
+    font-size: 1.1rem;
+    color: #444;
+}
+
+.form-group input {
+    width: 100%; /* Full width inputs */
+    padding: 12px;
+    font-size: 1rem;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    background-color: #f9f9f9; /* Light background for input */
+    color: #444;
+    transition: all 0.3s ease;
+    box-sizing: border-box;
+}
+
+/* Focus State */
+.form-group input:focus {
+    border-color: #007bff; /* Blue border when focused */
+    box-shadow: 0 0 10px rgba(0, 123, 255, 0.3); /* Subtle blue shadow on focus */
+    outline: none; /* Remove default focus outline */
+}
+
+/* Button Styling */
+button {
+    width: 100%;
+    padding: 14px;
+    font-size: 1.2rem;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-top: 20px;
+}
+
+button:hover {
+    background-color: #0056b3; /* Darker shade on hover */
+}
+
+/* Error Messages */
+.errors {
+    background-color: rgba(255, 99, 71, 0.1); /* Light background for errors */
+    color: #ff6347;
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    font-size: 1rem;
+}
+
+.errors ul {
+    list-style-type: none;
+}
+
+.errors li {
+    margin: 5px 0;
+}
+
+/* Fade-In Animation */
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.screenings-container {
+    max-width: 1000px; /* Set a max-width for better alignment */
+    width: 100%; /* Full width up to the max-width */
+    margin: 50px auto; /* Center the container */
+    padding: 30px;
+    background: #fff; /* White background */
+    border-radius: 15px; /* More rounded corners */
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1); /* Soft shadow for depth */
+    box-sizing: border-box;
+}
+
+.movie-details {
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
+    text-align: center;
+}
+
+.movie-details h2 {
+    font-size: 2rem;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.movie-details p {
+    font-size: 1.1rem;
+    color: #555;
+    line-height: 1.6;
+    margin-top: 10px;
+}
+
+.location-selection {
+    text-align: center;
+    margin-top: 30px;
+    background-color: #f8f9fa;
+    padding: 30px 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.location-selection h3 {
+    font-size: 1.8rem;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.location-selection form {
+    display: inline-block;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.location-selection select {
+    width: 250px;
+    padding: 10px;
+    margin-bottom: 15px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    font-size: 1rem;
+}
+
+.location-selection button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s;
+}
+
+.location-selection button:hover {
+    background-color: #0056b3;
+}
+
+/* Screenings List */
+.screenings-section {
+    margin-top: 40px;
+    text-align: center;
+}
+
+.screenings-section h3 {
+    font-size: 2rem;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.screenings-section ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.screenings-section li {
+    background-color: #fff;
+    margin: 10px 0;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: transform 0.3s ease;
+}
+
+.screenings-section li:hover {
+    transform: translateY(-5px);
+}
+
+.screenings-section .btn {
+    background-color: #28a745;
+    padding: 8px 16px;
+    color: #fff;
+    font-size: 1rem;
+    border-radius: 5px;
+    text-align: center;
+    text-decoration: none;
+    transition: background-color 0.3s;
+}
+
+.screenings-section .btn:hover {
+    background-color: #218838;
+}
+
+/* Movie Poster Style */
