@@ -8,6 +8,7 @@ if (!isset($_SESSION['user_id'])) {
     exit;
 }
 
+$user_id = $_SESSION['user_id'];
 $screening_id = isset($_GET['screening_id']) ? $_GET['screening_id'] : null;
 
 // Redirect if no screening ID is provided
@@ -17,8 +18,10 @@ if (!$screening_id) {
 }
 
 // Fetch screening details including movie title
-$stmt = $pdo->prepare("SELECT screenings.*, movies.title AS movie_title FROM screenings 
+$stmt = $pdo->prepare("SELECT screenings.*, movies.title AS movie_title, movies.id AS movie_id, locations.id AS location_id 
+                        FROM screenings 
                         JOIN movies ON screenings.movie_id = movies.id 
+                        JOIN locations ON screenings.location_id = locations.id
                         WHERE screenings.id = ?");
 $stmt->execute([$screening_id]);
 $screening = $stmt->fetch();
@@ -54,23 +57,41 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['selected_seats'])) {
     if (empty($errors)) {
         try {
             $pdo->beginTransaction();
+            // Update seat availability to 'unavailable'
             foreach ($selected_seats as $seat_number) {
                 $stmt = $pdo->prepare("UPDATE seats SET available = 0 WHERE screening_id = ? AND seat_number = ?");
                 $stmt->execute([$screening_id, $seat_number]);
             }
+
+            // Insert the booking into the database
+            $stmt = $pdo->prepare("
+                INSERT INTO bookings (user_id, movie_id, location_id, showtime, seats, created_at) 
+                VALUES (:user_id, :movie_id, :location_id, :showtime, :seats, NOW())
+            ");
+            $stmt->execute([
+                ':user_id' => $user_id,
+                ':movie_id' => $screening['movie_id'],
+                ':location_id' => $screening['location_id'],
+                ':showtime' => $screening['showtime'],
+                ':seats' => implode(',', $selected_seats) // Store seats as a comma-separated string
+            ]);
+
+            // Commit the transaction
             $pdo->commit();
 
-            // Set booking success details
+            // Set booking success details in session
             $_SESSION['booking_success'] = [
                 'movie_title' => $screening['movie_title'],
+                'movie_id' => $screening['movie_id'],
                 'location_name' => 'Cinema XYZ', // Replace with actual location if available
+                'location_id' => $screening['location_id'],
                 'showtime' => $screening['showtime'],
                 'seats' => $selected_seats,
             ];
 
-            // Redirect to success page
+            // Redirect to booking success page
             header("Location: booking-success.php");
-            exit;
+            exit; // Ensure no further code is executed after the redirect
         } catch (Exception $e) {
             $pdo->rollBack();
             $errors[] = "Error processing your booking. Please try again.";
@@ -87,161 +108,51 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['selected_seats'])) {
     <title>Select Seats - <?php echo htmlspecialchars($screening['movie_title']); ?> | LayarKaca22</title>
     <link rel="stylesheet" href="assets/css/styles.css">
     <style>
-        /* Body and Layout */
-        body {
-            font-family: 'Helvetica Neue', sans-serif;
-            background-color: #ffffff; /* White background */
-            margin: 0;
-            padding: 0;
-            color: #333;
-        }
-
-        header {
-            background-color: #2a2a2a;
-            padding: 20px 0;
-            text-align: center;
-            color: white;
-        }
-
-        header h1 {
-            font-size: 2rem;
-            margin: 0;
-        }
-
-        .navbar nav a {
-            color: white;
-            font-size: 16px;
-            margin: 0 20px;
-            text-decoration: none;
-        }
-
-        .navbar nav a:hover {
-            text-decoration: underline;
-        }
-
-        .seat-map-container {
-            max-width: 900px;
-            margin: 50px auto;
-            padding: 30px;
-            background-color: #ffffff;
-            border-radius: 15px;
-            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
-            text-align: center;
-        }
-
-        .seat-map-container h2 {
-            font-size: 2.5rem;
-            color: #333;
-            margin-bottom: 20px;
-        }
-
-        .seat-map-container p {
-            font-size: 18px;
-            margin-bottom: 30px;
-            color: #777;
-        }
-
         .seat-map {
             display: grid;
             grid-template-columns: repeat(10, 1fr);
-            gap: 15px;
-            justify-content: center;
-            margin-top: 30px;
+            gap: 10px;
+            margin: 20px auto;
+            max-width: 500px;
         }
-
         .seat {
-            width: 60px;
-            height: 60px;
-            background: #4caf50;
-            color: white;
-            font-size: 18px;
-            font-weight: bold;
-            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            background-color: #ccc;
+            border: 1px solid #333;
             display: flex;
             justify-content: center;
             align-items: center;
             cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         }
-
-        .seat:hover {
-            background: #45a049;
-            transform: scale(1.1);
-        }
-
         .seat.selected {
-            background: #ff9800;
-            transform: scale(1.1);
+            background-color: green;
         }
-
         .seat.unavailable {
-            background: #bdbdbd;
+            background-color: red;
             cursor: not-allowed;
         }
-
-        .errors ul {
-            padding: 10px;
-            background-color: #f44336;
-            color: white;
-            list-style: none;
-            border-radius: 8px;
-            margin-bottom: 30px;
-            font-size: 14px;
-        }
-
-        .btn {
-            background-color: #4caf50;
-            color: white;
-            padding: 14px 28px;
-            border: none;
-            font-size: 18px;
-            border-radius: 50px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-            margin-top: 20px;
-        }
-
-        .btn:hover {
-            background-color: #388e3c;
-        }
-
-        footer {
-            background-color: #2a2a2a;
-            color: white;
-            padding: 20px;
+        .seat-map-container {
             text-align: center;
-            font-size: 14px;
-            position: absolute;
-            width: 100%;
-            bottom: 0;
         }
-
-        @media (max-width: 768px) {
-            .seat-map {
-                grid-template-columns: repeat(5, 1fr);
-            }
-
-            .seat {
-                width: 50px;
-                height: 50px;
-                font-size: 14px;
-            }
-
-            .btn {
-                padding: 12px 24px;
-                font-size: 16px;
-            }
+        .btn {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+        }
+        .btn:hover {
+            background-color: #45a049;
         }
     </style>
 </head>
 <body>
-
 <header>
     <div class="navbar">
         <h1>LayarKaca22</h1>
         <nav>
-            <a href="../screens/screenings.php">Back</a>
+            <a href="../screens/logout.php">Logout</a>
         </nav>
     </div>
 </header>
@@ -283,14 +194,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['selected_seats'])) {
 function toggleSeatSelection(seatElement) {
     if (!seatElement.classList.contains('unavailable')) {
         seatElement.classList.toggle('selected');
-        let selectedSeats = [];
-        document.querySelectorAll('.seat.selected').forEach(seat => {
-            selectedSeats.push(seat.getAttribute('data-seat-number'));
-        });
-        document.getElementById('selected_seats').value = selectedSeats.join(',');
+        updateSelectedSeats();
     }
 }
+function updateSelectedSeats() {
+    let selectedSeats = [];
+    document.querySelectorAll('.seat.selected').forEach(seat => {
+        selectedSeats.push(seat.getAttribute('data-seat-number'));
+    });
+    document.getElementById('selected_seats').value = selectedSeats.join(',');
+}
 </script>
-
 </body>
 </html>
