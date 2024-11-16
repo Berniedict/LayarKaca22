@@ -32,7 +32,106 @@ try {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Booking History - LayarKaca22</title>
-    <link rel="stylesheet" href="../assets/css/styles.css"> <!-- Optional for styling -->
+    <style>
+    /* Global Styling */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f4f9;
+    margin: 0;
+    padding: 0;
+    color: #333;
+}
+
+/* Navbar Styling */
+.navbar {
+    background-color: #2c3e50;
+    color: #ecf0f1;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.navbar h1 {
+    margin: 0;
+    font-size: 1.5rem;
+}
+
+nav a {
+    color: #ecf0f1;
+    margin-left: 1rem;
+    text-decoration: none;
+    font-size: 1rem;
+    transition: color 0.3s;
+}
+
+/* Booking History Section Styling */
+.booking-history-section {
+    max-width: 1000px;
+    margin: 2rem auto;
+    background-color: #fff;
+    border-radius: 8px;
+    padding: 2rem;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.booking-history-section h2 {
+    margin-top: 0;
+    font-size: 1.8rem;
+    border-bottom: 2px solid #3498db;
+    padding-bottom: 0.5rem;
+}
+
+.booking-history-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1rem;
+    overflow-x: auto;
+}
+
+.booking-history-table thead {
+    background-color: #3498db;
+    color: #fff;
+}
+
+.booking-history-table th, .booking-history-table td {
+    padding: 0.75rem;
+    text-align: left;
+    border: 1px solid #ddd;
+}
+
+.booking-history-table th {
+    font-weight: bold;
+}
+
+.booking-history-table tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+/* Responsive Styling */
+@media (max-width: 768px) {
+    .booking-history-table th, .booking-history-table td {
+        padding: 0.5rem;
+    }
+
+    nav a {
+        font-size: 0.9rem;
+    }
+}
+
+/* Footer Styling */
+footer {
+    background-color: #2a2a2a;
+    color: white;
+    padding: 10px;
+    text-align: center;
+    font-size: 13px;
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+}
+    </style>
 </head>
 <body>
 

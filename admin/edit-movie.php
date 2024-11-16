@@ -87,45 +87,161 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edit Movie - Admin</title>
-    <link rel="stylesheet" href="../assets/css/styles.css">
+    <style>
+        /* Basic Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f6f9;
+            color: #333;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 20px;
+        }
+
+        /* Container */
+        .form-container {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        /* Form elements */
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        label {
+            font-size: 1rem;
+            margin-bottom: 8px;
+            color: #2c3e50;
+        }
+
+        input[type="text"], textarea, input[type="file"] {
+            padding: 12px;
+            font-size: 1rem;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+            margin-bottom: 15px;
+            outline: none;
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        input[type="file"] {
+            border: none;
+        }
+
+        button {
+            background-color: #3498db;
+            color: white;
+            padding: 12px 20px;
+            font-size: 1rem;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #2980b9;
+        }
+
+        /* Error messages */
+        .errors {
+            background-color: #f8d7da;
+            color: #721c24;
+            padding: 15px;
+            border-radius: 4px;
+            margin-bottom: 20px;
+        }
+
+        .errors ul {
+            list-style-type: none;
+        }
+
+        .errors li {
+            margin-bottom: 10px;
+        }
+
+        .current-poster {
+            margin-bottom: 20px;
+        }
+
+        .current-poster img {
+            max-width: 100%;
+            border-radius: 4px;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 20px;
+            text-align: center;
+            color: #3498db;
+            font-size: 1rem;
+            text-decoration: none;
+        }
+
+        .back-link:hover {
+            text-decoration: underline;
+        }
+
+    </style>
 </head>
 <body>
 
     <h1>Edit Movie</h1>
 
-    <?php if (!empty($errors)): ?>
-        <div class="errors">
-            <ul>
-                <?php foreach ($errors as $error): ?>
-                    <li><?php echo $error; ?></li>
-                <?php endforeach; ?>
-            </ul>
-        </div>
-    <?php endif; ?>
+    <div class="form-container">
+        <?php if (!empty($errors)): ?>
+            <div class="errors">
+                <ul>
+                    <?php foreach ($errors as $error): ?>
+                        <li><?php echo $error; ?></li>
+                    <?php endforeach; ?>
+                </ul>
+            </div>
+        <?php endif; ?>
 
-    <form method="POST" action="edit-movie.php?movie_id=<?php echo $movie['id']; ?>" enctype="multipart/form-data">
-        <label for="title">Movie Title:</label>
-        <input type="text" id="title" name="title" value="<?php echo htmlspecialchars($movie['title']); ?>" required>
+        <form method="POST" action="edit-movie.php?movie_id=<?php echo $movie['id']; ?>" enctype="multipart/form-data">
+            <label for="title">Movie Title:</label>
+            <input type="text" id="title" name="title" value="<?php echo htmlspecialchars($movie['title']); ?>" required>
 
-        <label for="description">Description:</label>
-        <textarea id="description" name="description" required><?php echo htmlspecialchars($movie['description']); ?></textarea>
+            <label for="description">Description:</label>
+            <textarea id="description" name="description" required><?php echo htmlspecialchars($movie['description']); ?></textarea>
 
-        <label for="genre">Genre:</label>
-        <input type="text" id="genre" name="genre" value="<?php echo htmlspecialchars($movie['genre']); ?>" required>
+            <label for="genre">Genre:</label>
+            <input type="text" id="genre" name="genre" value="<?php echo htmlspecialchars($movie['genre']); ?>" required>
 
-        <label for="poster">Poster Image (Leave blank to keep the current one):</label>
-        <input type="file" id="poster" name="poster">
+            <label for="poster">Poster Image (Leave blank to keep the current one):</label>
+            <input type="file" id="poster" name="poster">
 
-        <!-- Show current poster image -->
-        <div class="current-poster">
-            <h4>Current Poster:</h4>
-            <img src="../assets/images/<?php echo htmlspecialchars($movie['poster']); ?>" alt="Current Poster" class="movie-poster">
-        </div>
+            <div class="current-poster">
+                <h4>Current Poster:</h4>
+                <img src="../assets/images/<?php echo htmlspecialchars($movie['poster']); ?>" alt="Current Poster" class="movie-poster">
+            </div>
 
-        <button type="submit">Update Movie</button>
-    </form>
+            <button type="submit">Update Movie</button>
+        </form>
 
-    <p><a href="admin-dashboard.php">Back to Dashboard</a></p>
+        <p><a href="admin-dashboard.php" class="back-link">Back to Dashboard</a></p>
+    </div>
 
 </body>
 </html>

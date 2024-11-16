@@ -63,38 +63,119 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Add Movie - Admin</title>
     <link rel="stylesheet" href="../assets/css/styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f8f9fa;
+            padding: 20px;
+            color: #333;
+        }
+        .container {
+            max-width: 700px;
+            margin: 0 auto;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            padding: 25px;
+        }
+        h1 {
+            text-align: center;
+            color: #212529;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 500;
+        }
+        input[type="text"], textarea, input[type="file"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ced4da;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+        textarea {
+            resize: vertical;
+        }
+        .btn {
+            display: block;
+            width: 100%;
+            background-color: #007bff;
+            color: #fff;
+            padding: 12px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .btn:hover {
+            background-color: #0056b3;
+        }
+        .errors {
+            background-color: #f8d7da;
+            color: #721c24;
+            padding: 12px;
+            border-radius: 5px;
+            margin-bottom: 15px;
+        }
+        .errors ul {
+            padding-left: 20px;
+        }
+        a {
+            display: inline-block;
+            margin-top: 20px;
+            text-align: center;
+            color: #007bff;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
 </head>
 <body>
+    <div class="container">
+        <h1>Add New Movie</h1>
 
-    <h1>Add New Movie</h1>
+        <?php if (!empty($errors)): ?>
+            <div class="errors">
+                <ul>
+                    <?php foreach ($errors as $error): ?>
+                        <li><?php echo $error; ?></li>
+                    <?php endforeach; ?>
+                </ul>
+            </div>
+        <?php endif; ?>
 
-    <?php if (!empty($errors)): ?>
-        <div class="errors">
-            <ul>
-                <?php foreach ($errors as $error): ?>
-                    <li><?php echo $error; ?></li>
-                <?php endforeach; ?>
-            </ul>
-        </div>
-    <?php endif; ?>
+        <form method="POST" action="add-movie.php" enctype="multipart/form-data">
+            <div class="form-group">
+                <label for="title">Movie Title:</label>
+                <input type="text" id="title" name="title" value="<?php echo htmlspecialchars($title); ?>" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="description">Description:</label>
+                <textarea id="description" name="description" required><?php echo htmlspecialchars($description); ?></textarea>
+            </div>
+            
+            <div class="form-group">
+                <label for="genre">Genre:</label>
+                <input type="text" id="genre" name="genre" value="<?php echo htmlspecialchars($genre); ?>" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="poster">Poster Image:</label>
+                <input type="file" id="poster" name="poster" required>
+            </div>
+            
+            <button type="submit" class="btn">Add Movie</button>
+        </form>
 
-    <form method="POST" action="add-movie.php" enctype="multipart/form-data">
-        <label for="title">Movie Title:</label>
-        <input type="text" id="title" name="title" value="<?php echo htmlspecialchars($title); ?>" required>
-
-        <label for="description">Description:</label>
-        <textarea id="description" name="description" required><?php echo htmlspecialchars($description); ?></textarea>
-
-        <label for="genre">Genre:</label>
-        <input type="text" id="genre" name="genre" value="<?php echo htmlspecialchars($genre); ?>" required>
-
-        <label for="poster">Poster Image:</label>
-        <input type="file" id="poster" name="poster" required>
-
-        <button type="submit">Add Movie</button>
-    </form>
-
-    <p><a href="admin-dashboard.php">Back to Dashboard</a></p>
-
+        <a href="admin-dashboard.php">&#8592; Back to Dashboard</a>
+    </div>
 </body>
 </html>

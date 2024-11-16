@@ -40,7 +40,127 @@ if (isset($_GET['delete'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Manage Showtimes - Admin Dashboard</title>
-    <link rel="stylesheet" href="../assets/css/styles.css">
+    <style>
+        /* Global Styling */
+ /* Global Styling */
+    body {
+        font-family: 'Arial', sans-serif;
+        background-color: #f4f4f9;
+        margin: 0;
+        padding: 0;
+        color: #333;
+    }
+
+    /* Navbar Styling */
+    .navbar {
+        background-color: #2c3e50;
+        color: #ecf0f1;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1rem 2rem;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .navbar h1 {
+        margin: 0;
+        font-size: 1.5rem;
+    }
+
+    nav a {
+        color: #ecf0f1;
+        margin-left: 1rem;
+        text-decoration: none;
+        font-size: 1rem;
+    }
+
+    /* Dashboard Overview Section */
+    .dashboard-overview {
+        max-width: 1000px;
+        margin: 2rem auto;
+        background-color: #fff;
+        border-radius: 8px;
+        padding: 2rem;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .dashboard-overview h2 {
+        margin-top: 0;
+        font-size: 1.8rem;
+        border-bottom: 2px solid #3498db;
+        padding-bottom: 0.5rem;
+    }
+
+    .dashboard-overview p {
+        margin-bottom: 1.5rem;
+        color: #555;
+    }
+
+    /* Table Styling */
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 2rem;
+    }
+
+    thead {
+        background-color: #3498db;
+        color: #fff;
+    }
+
+    table th, table td {
+        padding: 0.75rem;
+        text-align: left;
+        border: 1px solid #ddd;
+    }
+
+    table th {
+        font-weight: bold;
+    }
+
+    table tr:nth-child(even) {
+        background-color: #f9f9f9;
+    }
+
+    a {
+        color: #3498db;
+        text-decoration: none;
+    }
+
+    /* Buttons */
+    button, .btn-link {
+        background-color: #3498db;
+        color: #fff;
+        border: none;
+        padding: 0.5rem 1rem;
+        text-decoration: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+    /* Footer Styling */
+    footer {
+        background-color: #2a2a2a;
+        color: white;
+        padding: 5px;
+        text-align: center;
+        font-size: 13px;
+        position: fixed;
+        width: 100%;
+        bottom: 0;
+    }
+
+    .back-button {
+        display: inline-block;
+        margin-bottom: 1rem;
+        background-color: #95a5a6;
+        color: #fff;
+        padding: 0.5rem 1rem;
+        border-radius: 4px;
+        text-decoration: none;
+    }
+
+    </style>
 </head>
 <body>
 
@@ -59,6 +179,7 @@ if (isset($_GET['delete'])) {
 <!-- Dashboard Overview -->
 <section class="dashboard-overview">
     <h2>Manage Showtimes</h2>
+    <p><a class="back-button" href="javascript:history.back()">&larr; Back</a></p>
     <p>Below are the list of scheduled showtimes. You can add, edit, or delete them.</p>
 
     <!-- Showtimes Table -->

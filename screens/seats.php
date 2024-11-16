@@ -108,43 +108,159 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['selected_seats'])) {
     <title>Select Seats - <?php echo htmlspecialchars($screening['movie_title']); ?> | LayarKaca22</title>
     <link rel="stylesheet" href="assets/css/styles.css">
     <style>
-        .seat-map {
-            display: grid;
-            grid-template-columns: repeat(10, 1fr);
-            gap: 10px;
-            margin: 20px auto;
-            max-width: 500px;
-        }
-        .seat {
-            width: 40px;
-            height: 40px;
-            background-color: #ccc;
-            border: 1px solid #333;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            cursor: pointer;
-        }
-        .seat.selected {
-            background-color: green;
-        }
-        .seat.unavailable {
-            background-color: red;
-            cursor: not-allowed;
-        }
-        .seat-map-container {
-            text-align: center;
-        }
-        .btn {
-            background-color: #4CAF50;
-            color: white;
-            padding: 10px 20px;
-            border: none;
-            cursor: pointer;
-        }
-        .btn:hover {
-            background-color: #45a049;
-        }
+        /* Basic layout and container styling */
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #f4f4f4;
+    padding: 20px;
+}
+
+header {
+    background-color: #333;
+    color: #fff;
+    padding: 10px 20px;
+    text-align: center;
+}
+
+header .navbar h1 {
+    margin: 0;
+    font-size: 2rem;
+    font-weight: 500;
+}
+
+header .navbar nav a {
+    color: #fff;
+    text-decoration: none;
+    margin-left: 20px;
+}
+
+header .navbar nav a:hover {
+    text-decoration: underline;
+}
+
+footer {
+    text-align: center;
+    margin-top: 30px;
+    font-size: 14px;
+    color: #777;
+}
+
+/* Seat map container */
+.seat-map-container {
+    text-align: center;
+    margin-top: 30px;
+}
+
+.seat-map-container h2 {
+    font-size: 2rem;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.seat-map-container p {
+    font-size: 1rem;
+    color: #555;
+    margin-bottom: 30px;
+}
+
+/* Seat map grid */
+.seat-map {
+    display: grid;
+    grid-template-columns: repeat(10, 1fr);
+    gap: 12px;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.seat {
+    width: 50px;
+    height: 50px;
+    background-color: #e0e0e0;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 600;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.seat:hover {
+    background-color: #00bcd4;
+    transform: scale(1.05);
+}
+
+.seat.selected {
+    background-color: #4CAF50;
+    color: white;
+    transform: scale(1.1);
+}
+
+.seat.unavailable {
+    background-color: #f44336;
+    color: white;
+    cursor: not-allowed;
+}
+
+/* Error messages */
+.errors {
+    background-color: #f8d7da;
+    color: #721c24;
+    padding: 15px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    font-size: 14px;
+}
+
+.errors ul {
+    padding-left: 20px;
+}
+
+.errors li {
+    list-style-type: disc;
+}
+
+/* Form and button styling */
+form {
+    margin-top: 30px;
+}
+
+button[type="submit"].btn {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 600;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+    margin-top: 20px; /* Added margin-top to move button down */
+}
+
+button[type="submit"].btn:hover {
+    background-color: #45a049;
+}
+
+/* Responsive adjustments */
+@media screen and (max-width: 768px) {
+    .seat-map {
+        grid-template-columns: repeat(5, 1fr);
+    }
+
+    .seat {
+        width: 40px;
+        height: 40px;
+    }
+
+    button.btn {
+        font-size: 16px;
+        padding: 12px 25px;
+    }
+}
+
     </style>
 </head>
 <body>
@@ -152,7 +268,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['selected_seats'])) {
     <div class="navbar">
         <h1>LayarKaca22</h1>
         <nav>
-            <a href="../screens/logout.php">Logout</a>
+            <a href="/index.php">Back</a>
         </nav>
     </div>
 </header>

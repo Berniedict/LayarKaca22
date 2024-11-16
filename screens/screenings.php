@@ -48,6 +48,27 @@ if (isset($_POST['location_id'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Screenings - <?php echo htmlspecialchars($movie['title']); ?> | LayarKaca22</title>
     <link rel="stylesheet" href="../assets/css/styles.css">
+    <style>
+        /* Back Button Styling */
+        .back-button-container {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .btn-back {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 4px;
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        .btn-back:hover {
+            background-color: #0056b3;
+        }
+    </style>
 </head>
 <body>
 
@@ -57,6 +78,7 @@ if (isset($_POST['location_id'])) {
             <h1>LayarKaca22</h1>
             <nav>
                 <?php if ($is_logged_in): ?>
+                    <a href="booking-history.php">Booking History</a>
                     <a href="logout.php">Logout</a>
                 <?php else: ?>
                     <a href="login.php">Login</a>
@@ -100,6 +122,11 @@ if (isset($_POST['location_id'])) {
         </ul>
     </section>
     <?php endif; ?>
+
+    <!-- Back Button -->
+    <section class="back-button-container">
+        <a href="/index.php" class="btn-back">Back to Movie List</a>
+    </section>
 
     <!-- Footer -->
     <footer>

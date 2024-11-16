@@ -53,6 +53,124 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Add Showtime - Admin Dashboard</title>
     <link rel="stylesheet" href="../assets/css/styles.css">
+    <style>
+        /* Global Styles */
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+
+        header {
+            background-color: #34495e;
+            padding: 1rem 2rem;
+            color: #ecf0f1;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 1.8rem;
+        }
+
+        nav a {
+            color: #ecf0f1;
+            margin-left: 1rem;
+            text-decoration: none;
+            font-size: 1.1rem;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: #3498db;
+        }
+
+        /* Add Showtime Form */
+        .add-showtime {
+            max-width: 900px;
+            margin: 3rem auto;
+            background-color: #fff;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .add-showtime h2 {
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 0.5rem;
+            color: #34495e;
+        }
+
+        label {
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+            display: block;
+            color: #34495e;
+        }
+
+        select, input[type="datetime-local"] {
+            width: 100%;
+            padding: 0.75rem;
+            margin-bottom: 1.5rem;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+            font-size: 1rem;
+            color: #34495e;
+            background-color: #f9f9f9;
+        }
+
+        select:focus, input[type="datetime-local"]:focus {
+            outline: none;
+            border-color: #3498db;
+            background-color: #fff;
+        }
+
+        button {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            padding: 0.75rem 2rem;
+            font-size: 1.1rem;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #2980b9;
+        }
+
+        /* Footer */
+        footer {
+            background-color: #2c3e50;
+            color: white;
+            padding: 10px 0;
+            text-align: center;
+            font-size: 13px;
+            position: fixed;
+            width: 100%;
+            bottom: 0;
+        }
+
+        .back-button {
+            display: inline-block;
+            margin-bottom: 1rem;
+            background-color: #95a5a6;
+            color: #fff;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            text-decoration: none;
+            transition: background-color 0.3s;
+        }
+
+        .back-button:hover {
+            background-color: #7f8c8d;
+        }
+    </style>
 </head>
 <body>
 
@@ -63,7 +181,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <nav>
             <a href="add-movie.php">Add Movie</a>
             <a href="manage-showtimes.php">Manage Showtimes</a>
-            <a href="manage-bookings.php">Manage Bookings</a>
             <a href="../screens/logout.php">Logout</a>
         </nav>
     </div>
